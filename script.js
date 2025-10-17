@@ -133,8 +133,140 @@
 // console.log(str.trim().repeat(10)
 // )
 
-let str="red%green%blue"
+// let str="red%green%blue"
 
-console.log(str.split("%"))
-console.log(str.split("%",2))
-console.log(str.split(""))
+// console.log(str.split("%"))
+// console.log(str.split("%",2))
+// console.log(str.split(""))
+
+
+// operators
+
+// let a=10
+// let b=5
+
+// // Arithmetic operators
+// console.log(a+b) // Addition
+// console.log(a-b) // Subtraction
+// console.log(a*b) // Multiplication
+// console.log(a/b) // Division
+// console.log(a%b) // Modulus
+// console.log(a**b) // Exponentiation
+
+// // Assignment operators
+// let c=a // Assignment
+// c+=b // c=c+b
+// console.log(c)
+// c-=b // c=c-b
+// console.log(c)
+// c*=b // c=c*b               
+// console.log(c)  
+// c/=b // c=c/b
+// console.log(c)
+// c%=b // c=c%b
+// console.log(c)
+// c**=b // c=c**b
+// console.log(c)
+
+
+// // Comparison operators
+
+// let a=10;
+// let b="10";
+
+// // console.log(a=b); 
+// console.log(a==b);
+// console.log(a===b);
+
+// console.log(a!=b);
+// console.log(a!==b);
+
+// console.log(a>b);
+// console.log(a<b);
+// console.log(a>=b);
+// console.log(a<=b);
+
+
+// // // Logical operators
+// let x=true;
+// let y=false;
+
+// console.log(x && y);
+// console.log(x || y);
+// console.log(!x);
+
+// // Increment and Decrement operators
+
+// let count=10;
+
+// let newCount=count++ //post-increment
+// console.log("newCount:",newCount)
+// console.log("count:",count)
+
+// let newCount2=++count //pre-increment
+// console.log("newCount2:",newCount2)
+// console.log("count:",count)
+
+
+// let x = 5;
+// console.log(typeof x); 
+
+// let result = (x > 3) ? "Yes" : "No"; 
+// console.log(result);
+
+// console.log(false+true);
+
+
+// Variable Scopes 
+
+// var globalVar="I am a global variable";
+
+// function checkScope( ) {
+//   var localVar="I am a local variable";
+//   console.log(globalVar); 
+//   console.log(localVar);  
+// }
+
+// checkScope();
+// // console.log(localVar);
+// console.log(globalVar);
+
+
+// {
+//   let x = 10;
+//   const y = 20;
+// }
+
+// console.log(x);
+
+
+// for (let i = 1; i <=10 ; i++) {
+//   console.log("Count:", i);
+// }
+
+
+// for (let i = 1; i <= 10; i++) {
+//   if (i === 5) continue;
+//   console.log(i);
+// }
+
+
+// let colors = ["red", "green", "blue", "yellow", "purple"];
+
+// let i=colors[0]
+// let color=i
+
+// for (let color of colors) {
+//   color=="green"?console.log("DO not stop here"):console.log("Stop here");
+// }
+
+let user = { name: "Ram", age: 20 };
+
+for (let key in user) {
+  console.log(key, user[key]);
+}
+
+
+
+
+
