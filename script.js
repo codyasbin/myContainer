@@ -260,13 +260,152 @@
 //   color=="green"?console.log("DO not stop here"):console.log("Stop here");
 // }
 
-let user = { name: "Ram", age: 20 };
+// let user = { name: "Ram", age: 20 };
 
-for (let key in user) {
-  console.log(key, user[key]);
-}
-
-
+// for (let key in user) {
+//   console.log(key, user[key]);
+// }
 
 
+//Functions 
+
+
+// greet("Sandesh");
+
+
+// function greet(name, age, address) {
+//   console.log(`Hello, welcome to JavaScript functions, ${name}!, You are ${age} years old and live at ${address}.`);
+// }
+
+// greet("Sandesh", 25, "123 Main St");
+
+// greet("asbin"); greet("John"); greet("Doe");
+
+
+// const greet = function(name) {
+//   console.log(`Hello, ${name}!`);
+// }
+
+// greet("Sandesh");
+
+
+// const greet=(name,age)=>console.log("Hello, welcome to arrow functions!");
+
+// greet();
+// greet("Sandesh",22);
+
+// const hello=()=>{
+//   console.log("Hello World!");
+//   console.log("This is an arrow function with no parameters.");
+// }
+
+// hello();
+
+// function animal(callback) {
+// console.log("This is higher order function.");
+// callback();
+// }
+
+
+// animal(() => console.log("This is a callback function."));
+
+
+
+// setTimeout(() =>console.log("This message is displayed after 3 seconds."), 3000);
+
+// setInterval(() =>console.log("This message is displayed every 2 seconds."), 2000);
+
+// (function greet(){
+//   console.log("Hello, welcome to JavaScript!");
+// })();
+
+// function outer() {
+//   let count = 0;
+
+//   return function inner() {
+//     count++;
+//     console.log(`Count is ${count}`);
+//   };
+// }
+
+// const counter = outer();
+
+// counter(); // Count is 1
+// counter(); // Count is 2
+
+
+// function TotalSum(...numbers) {
+//   let total=numbers.reduce((acc, curr) => acc + curr, 0);
+//   return total;
+// }
+
+// let sum=TotalSum(10,20,30,40,50);
+// console.log("The total sum is "+sum);
+
+
+// let nums=[5,10,15,20];
+// console.log(nums);
+// console.log(...nums);
+
+
+
+//Arrays
+
+// let fruits = ["apple", "banana", "orange"];
+
+// //adding element
+
+// fruits.push("grape");
+// fruits.unshift("mango");
+
+// fruits.pop();
+// fruits.shift();
+// console.log(fruits);
+
+// console.log(fruits.length);
+
+
+
+// fruits.forEach((v,i)=>console.log("I like "+v+" at index "+i));
+
+
+
+// let numbers = [10, true, "banana", 1, 7];
+
+// let sorted=numbers.sort((a, b) => a + b);
+
+// console.log("Sorted numbers:", sorted);
+
+// let filtered= numbers.filter((num) => num % 2 === 0 );
+
+// console.log("Filtered numbers:", filtered);
+
+// let mapped= numbers.map((num) => num * 2 );
+
+// console.log("Mapped numbers:", mapped);
+
+// console.log(numbers.slice(1,3));
+
+// numbers.splice(1,4);
+// console.log(numbers);
+
+// const foundNumber = numbers.find((num) => num === 8 );
+
+// console.log("Found number:", foundNumber);
+
+// numbers.every((num) => num > 5 ) ? console.log("At least one number is greater than 15") : console.log("No numbers are greater than 15");
+
+
+// console.log(numbers[1])
+
+
+// const num1=[1,2,3,4,5];
+// const num2=[6,7,8,9,10];
+
+// const combined=[...num1,...num2];
+
+// console.log("Combined array:",combined);
+
+
+// console.log(num1.join("-"));
 
