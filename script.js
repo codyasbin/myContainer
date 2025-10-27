@@ -3,7 +3,6 @@
 // console.warn("This is a warning message");
 // console.info("This is some information");
 
-
 // var name="sandesh";
 // let age=22;
 // const address="chitwan"
@@ -29,14 +28,11 @@
 // console.log(a);
 // var a=10;
 
-
-
 // sayHi();
 
 // function sayHi() {
 //   console.log("Hi!");
 // };
-
 
 // let name="sandesh";
 // let number=4353534;
@@ -47,13 +43,12 @@
 // let symbol=Symbol("id");
 
 // console.log(typeof name);
-// console.log(typeof number);  
+// console.log(typeof number);
 // console.log(typeof isTrue);
 // console.log(typeof empty);
 // console.log(typeof notDefined);
 // console.log(typeof bigInt);
-// console.log(typeof symbol);       
-
+// console.log(typeof symbol);
 
 // const person = {
 //   name: "sandesh",
@@ -66,8 +61,7 @@
 // console.log(typeof person);
 // console.log(typeof fruits);
 
-
-// String 
+// String
 
 // let firstName="sandesh";
 // let lastName="thapa";
@@ -88,13 +82,11 @@
 
 // console.log(num*num2)
 
-
 // let parsedNum=parseInt(num2)
 // let parsedNUm2=Number(num2)
 
 // console.log(typeof parsedNum)
 // console.log(typeof parsedNUm2)
-
 
 // let parsedString=String(num)
 // console.log(typeof parsedString)
@@ -127,7 +119,6 @@
 
 // console.log(str.trim())
 
-
 // console.log(str.padStart(20,"0"))
 
 // console.log(str.trim().repeat(10)
@@ -138,7 +129,6 @@
 // console.log(str.split("%"))
 // console.log(str.split("%",2))
 // console.log(str.split(""))
-
 
 // operators
 
@@ -159,8 +149,8 @@
 // console.log(c)
 // c-=b // c=c-b
 // console.log(c)
-// c*=b // c=c*b               
-// console.log(c)  
+// c*=b // c=c*b
+// console.log(c)
 // c/=b // c=c/b
 // console.log(c)
 // c%=b // c=c%b
@@ -168,13 +158,12 @@
 // c**=b // c=c**b
 // console.log(c)
 
-
 // // Comparison operators
 
 // let a=10;
 // let b="10";
 
-// // console.log(a=b); 
+// // console.log(a=b);
 // console.log(a==b);
 // console.log(a===b);
 
@@ -185,7 +174,6 @@
 // console.log(a<b);
 // console.log(a>=b);
 // console.log(a<=b);
-
 
 // // // Logical operators
 // let x=true;
@@ -207,30 +195,27 @@
 // console.log("newCount2:",newCount2)
 // console.log("count:",count)
 
-
 // let x = 5;
-// console.log(typeof x); 
+// console.log(typeof x);
 
-// let result = (x > 3) ? "Yes" : "No"; 
+// let result = (x > 3) ? "Yes" : "No";
 // console.log(result);
 
 // console.log(false+true);
 
-
-// Variable Scopes 
+// Variable Scopes
 
 // var globalVar="I am a global variable";
 
 // function checkScope( ) {
 //   var localVar="I am a local variable";
-//   console.log(globalVar); 
-//   console.log(localVar);  
+//   console.log(globalVar);
+//   console.log(localVar);
 // }
 
 // checkScope();
 // // console.log(localVar);
 // console.log(globalVar);
-
 
 // {
 //   let x = 10;
@@ -239,17 +224,14 @@
 
 // console.log(x);
 
-
 // for (let i = 1; i <=10 ; i++) {
 //   console.log("Count:", i);
 // }
-
 
 // for (let i = 1; i <= 10; i++) {
 //   if (i === 5) continue;
 //   console.log(i);
 // }
-
 
 // let colors = ["red", "green", "blue", "yellow", "purple"];
 
@@ -266,12 +248,9 @@
 //   console.log(key, user[key]);
 // }
 
-
-//Functions 
-
+//Functions
 
 // greet("Sandesh");
-
 
 // function greet(name, age, address) {
 //   console.log(`Hello, welcome to JavaScript functions, ${name}!, You are ${age} years old and live at ${address}.`);
@@ -281,13 +260,11 @@
 
 // greet("asbin"); greet("John"); greet("Doe");
 
-
 // const greet = function(name) {
 //   console.log(`Hello, ${name}!`);
 // }
 
 // greet("Sandesh");
-
 
 // const greet=(name,age)=>console.log("Hello, welcome to arrow functions!");
 
@@ -306,10 +283,7 @@
 // callback();
 // }
 
-
 // animal(() => console.log("This is a callback function."));
-
-
 
 // setTimeout(() =>console.log("This message is displayed after 3 seconds."), 3000);
 
@@ -333,7 +307,6 @@
 // counter(); // Count is 1
 // counter(); // Count is 2
 
-
 // function TotalSum(...numbers) {
 //   let total=numbers.reduce((acc, curr) => acc + curr, 0);
 //   return total;
@@ -342,12 +315,9 @@
 // let sum=TotalSum(10,20,30,40,50);
 // console.log("The total sum is "+sum);
 
-
 // let nums=[5,10,15,20];
 // console.log(nums);
 // console.log(...nums);
-
-
 
 //Arrays
 
@@ -364,11 +334,7 @@
 
 // console.log(fruits.length);
 
-
-
 // fruits.forEach((v,i)=>console.log("I like "+v+" at index "+i));
-
-
 
 // let numbers = [10, true, "banana", 1, 7];
 
@@ -395,9 +361,7 @@
 
 // numbers.every((num) => num > 5 ) ? console.log("At least one number is greater than 15") : console.log("No numbers are greater than 15");
 
-
 // console.log(numbers[1])
-
 
 // const num1=[1,2,3,4,5];
 // const num2=[6,7,8,9,10];
@@ -406,6 +370,75 @@
 
 // console.log("Combined array:",combined);
 
-
 // console.log(num1.join("-"));
 
+//Objects
+
+// let person1 = {
+//   name: 'Alice',
+//   age: 25,
+//   isStudent: false,
+//   address: "bharatpur",
+//   relations: {
+//     father: "ram",
+//     mother: "sita"
+//   },
+// };
+
+// // bracket notation
+// console.log(person["address"])
+
+// // dot notation
+// console.log(person.name)
+
+// person.age=30
+
+// delete person.isStudent
+// console.log(person)
+
+// for (let key in person) {
+//   console.log(key);
+// }
+
+// const numbers = [1, 2, 3, 4, 5];
+
+// for (let index of numbers) {
+//   console.log(index);
+// }
+
+// console.log(Object.keys(person))
+// console.log(Object.values(person))
+// console.log(Object.entries(person))
+
+// console.log(person.relations.mother)
+
+// const personDetails = [{ name: "Sandesh", age: 22, address: "Chitwan" },
+//      { name: "Asbin", age: 23, address: "Kathmandu" },
+//      { name: "John", age: 24, address: "Lalitpur" },
+//      { name: "Doe", age: 25, address: "Bhaktapur" }];
+
+// console.log(personDetails[0].address)
+
+// const filteredData=personDetails.filter((person)=>person.age>22)
+// console.log(filteredData)
+// filteredData.forEach((person)=>console.log(person.name))
+
+// const person = {
+//   name: "Sandesh",
+//   age: 22,
+//   address: "Chitwan",
+// };
+
+
+// console.log(person)
+// console.log(typeof person)
+// console.log("----------Converting object to JSON string----------")
+// // parsing into json string
+// const jsonString=JSON.stringify(person)
+// console.log(jsonString)
+// console.log(typeof jsonString)
+
+// // converting json string back to object
+// const jsonObject=JSON.parse(jsonString)
+// console.log(jsonObject)
+// console.log(typeof jsonObject)
