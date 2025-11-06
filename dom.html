@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+    <h1 id="first">Hello world </h1>
+    <h2 id="second">Hello world</h2>
+    <h3  class="third">Hello world</h3>
+    <h4  class="third">Hello world</h4>
+    <h5>Hello world</h5>
+
+    <div id="container">
+        i am a container
+
+    </div>
+
+    <a href="https://asbin.me">GO to link</a>
+
+    <button>Click me</button>
+     <script>
+        const firstHeading= document.getElementById('first');
+        const button= document.querySelector('button');
+        button.addEventListener('click',()=>{
+            firstHeading.style.color='blue';
+        });
+    </script>
+</body>
+</html>
