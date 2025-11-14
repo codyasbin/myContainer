@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser API Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .info-display {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            line-height: 1.8;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #a78bfa;
+        }
+
+        video, canvas {
+            width: 100%;
+            border-radius: 15px;
+            margin-top: 15px;
+            background: #000;
+        }
+
+        #cameraCanvas {
+            display: none;
+        }
+
+        .canvas-container {
+            position: relative;
+            margin-top: 15px;
+        }
+
+        #drawCanvas {
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: crosshair;
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .color-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .speech-output {
+            min-height: 60px;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+
+        .recording {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .battery-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .battery-bar {
+            flex: 1;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .battery-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .battery-low {
+            background: linear-gradient(90deg, #ef4444, #f87171);
+        }
+
+        .notification-log {
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .log-item {
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .sensor-data {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .sensor-value {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .sensor-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .sensor-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #a78bfa;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error {
+            color: #fca5a5;
+            background: rgba(239, 68, 68, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Browser API Showcase</h1>
+            <p class="subtitle">Explore powerful native browser capabilities</p>
+        </header>
+
+        <div class="grid">
+            <!-- Geolocation API -->
+            <div class="card">
+                <div class="card-title">📍 Geolocation API</div>
+                <p>Get your precise location using GPS</p>
+                <button onclick="getLocation()">Get My Location</button>
+                <div id="locationInfo"></div>
+            </div>
+
+            <!-- Camera API -->
+            <div class="card">
+                <div class="card-title">📷 Camera API</div>
+                <p>Access your device camera</p>
+                <button onclick="startCamera()">Start Camera</button>
+                <button onclick="takePhoto()">Take Photo</button>
+                <button onclick="stopCamera()">Stop Camera</button>
+                <video id="cameraVideo" autoplay playsinline></video>
+                <canvas id="cameraCanvas"></canvas>
+            </div>
+
+            <!-- Speech Recognition API -->
+            <div class="card">
+                <div class="card-title">🎤 Speech Recognition</div>
+                <p>Convert your speech to text</p>
+                <button onclick="startSpeechRecognition()">Start Listening</button>
+                <button onclick="stopSpeechRecognition()">Stop</button>
+                <div id="speechOutput" class="speech-output">Click "Start Listening" and speak...</div>
+            </div>
+
+            <!-- Device Orientation API -->
+            <div class="card">
+                <div class="card-title">📱 Device Orientation</div>
+                <p>Detect device tilt and rotation</p>
+                <button onclick="startOrientation()">Start Tracking</button>
+                <div class="sensor-data">
+                    <div class="sensor-value">
+                        <div class="sensor-label">Alpha (Z)</div>
+                        <div class="sensor-number" id="alpha">0°</div>
+                    </div>
+                    <div class="sensor-value">
+                        <div class="sensor-label">Beta (X)</div>
+                        <div class="sensor-number" id="beta">0°</div>
+                    </div>
+                    <div class="sensor-value">
+                        <div class="sensor-label">Gamma (Y)</div>
+                        <div class="sensor-number" id="gamma">0°</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Battery API -->
+            <div class="card">
+                <div class="card-title">🔋 Battery Status</div>
+                <p>Monitor device battery level</p>
+                <button onclick="getBatteryInfo()">Check Battery</button>
+                <div id="batteryInfo"></div>
+            </div>
+
+            <!-- Vibration API -->
+            <div class="card">
+                <div class="card-title">📳 Vibration API</div>
+                <p>Trigger device vibrations</p>
+                <button onclick="vibrateShort()">Short Vibrate</button>
+                <button onclick="vibrateLong()">Long Vibrate</button>
+                <button onclick="vibratePattern()">Pattern Vibrate</button>
+            </div>
+
+            <!-- Notification API -->
+            <div class="card">
+                <div class="card-title">🔔 Notifications</div>
+                <p>Send browser notifications</p>
+                <button onclick="requestNotificationPermission()">Enable Notifications</button>
+                <button onclick="showNotification()">Send Notification</button>
+                <div id="notificationLog" class="notification-log"></div>
+            </div>
+
+            <!-- Canvas Drawing API -->
+            <div class="card">
+                <div class="card-title">🎨 Canvas API</div>
+                <p>Draw with your mouse/finger</p>
+                <div class="canvas-container">
+                    <canvas id="drawCanvas" width="300" height="200"></canvas>
+                </div>
+                <div class="color-picker">
+                    <div class="color-btn" style="background: #000" onclick="setDrawColor('#000')"></div>
+                    <div class="color-btn" style="background: #ef4444" onclick="setDrawColor('#ef4444')"></div>
+                    <div class="color-btn" style="background: #3b82f6" onclick="setDrawColor('#3b82f6')"></div>
+                    <div class="color-btn" style="background: #10b981" onclick="setDrawColor('#10b981')"></div>
+                    <div class="color-btn" style="background: #f59e0b" onclick="setDrawColor('#f59e0b')"></div>
+                    <div class="color-btn" style="background: #8b5cf6" onclick="setDrawColor('#8b5cf6')"></div>
+                </div>
+                <button onclick="clearCanvas()">Clear Canvas</button>
+            </div>
+
+            <!-- Web Speech Synthesis -->
+            <div class="card">
+                <div class="card-title">🗣️ Text to Speech</div>
+                <p>Make the browser speak</p>
+                <textarea id="speechText" style="width: 100%; padding: 10px; border-radius: 10px; border: none; margin-top: 10px;" rows="3" placeholder="Enter text to speak...">Hello! This is the Text to Speech API demonstration.</textarea>
+                <button onclick="speakText()">Speak</button>
+                <button onclick="stopSpeaking()">Stop</button>
+            </div>
+
+            <!-- Clipboard API -->
+            <div class="card">
+                <div class="card-title">📋 Clipboard API</div>
+                <p>Copy and paste operations</p>
+                <textarea id="clipboardText" style="width: 100%; padding: 10px; border-radius: 10px; border: none; margin-top: 10px;" rows="3" placeholder="Text to copy...">Copy me to clipboard!</textarea>
+                <button onclick="copyToClipboard()">Copy to Clipboard</button>
+                <button onclick="pasteFromClipboard()">Paste from Clipboard</button>
+            </div>
+
+            <!-- Fullscreen API -->
+            <div class="card">
+                <div class="card-title">⛶ Fullscreen API</div>
+                <p>Toggle fullscreen mode</p>
+                <div id="fullscreenContent" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: 15px; text-align: center; margin-top: 15px;">
+                    <h2>Fullscreen Content</h2>
+                    <p style="margin-top: 10px;">This will expand to fullscreen!</p>
+                </div>
+                <button onclick="toggleFullscreen()">Toggle Fullscreen</button>
+            </div>
+
+            <!-- Page Visibility API -->
+            <div class="card">
+                <div class="card-title">👁️ Page Visibility</div>
+                <p>Detect when user switches tabs</p>
+                <div class="info-display">
+                    <div class="info-item">
+                        <span class="label">Page Status:</span>
+                        <span id="visibilityStatus">Visible</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Tab Switches:</span>
+                        <span id="visibilityCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Geolocation API
+        function getLocation() {
+            const output = document.getElementById('locationInfo');
+            
+            if (!navigator.geolocation) {
+                output.innerHTML = '<div class="error">Geolocation not supported</div>';
+                return;
+            }
+            
+            output.innerHTML = '<div class="info-display">Getting location...</div>';
+            
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude.toFixed(6);
+                    const lon = position.coords.longitude.toFixed(6);
+                    const accuracy = position.coords.accuracy.toFixed(0);
+                    
+                    output.innerHTML = `
+                        <div class="info-display">
+                            <div class="info-item"><span class="label">Latitude:</span> ${lat}</div>
+                            <div class="info-item"><span class="label">Longitude:</span> ${lon}</div>
+                            <div class="info-item"><span class="label">Accuracy:</span> ±${accuracy}m</div>
+                        </div>
+                    `;
+                },
+                (error) => {
+                    output.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+                }
+            );
+        }
+
+        // Camera API
+        let cameraStream = null;
+        
+        async function startCamera() {
+            try {
+                cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                document.getElementById('cameraVideo').srcObject = cameraStream;
+                document.getElementById('cameraVideo').style.display = 'block';
+            } catch (error) {
+                alert('Camera access denied or not available: ' + error.message);
+            }
+        }
+        
+        function takePhoto() {
+            const video = document.getElementById('cameraVideo');
+            const canvas = document.getElementById('cameraCanvas');
+            
+            if (!cameraStream) {
+                alert('Please start camera first!');
+                return;
+            }
+            
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            canvas.style.display = 'block';
+            video.style.display = 'none';
+        }
+        
+        function stopCamera() {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+                document.getElementById('cameraVideo').srcObject = null;
+                document.getElementById('cameraVideo').style.display = 'none';
+            }
+        }
+
+        // Speech Recognition API
+        let recognition = null;
+        
+        function startSpeechRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Speech recognition not supported in this browser');
+                return;
+            }
+            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            
+            const output = document.getElementById('speechOutput');
+            output.classList.add('recording');
+            output.textContent = '🎤 Listening...';
+            
+            recognition.onresult = (event) => {
+                let transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                output.textContent = transcript || '🎤 Listening...';
+            };
+            
+            recognition.onerror = (event) => {
+                output.classList.remove('recording');
+                output.textContent = 'Error: ' + event.error;
+            };
+            
+            recognition.start();
+        }
+        
+        function stopSpeechRecognition() {
+            if (recognition) {
+                recognition.stop();
+                document.getElementById('speechOutput').classList.remove('recording');
+            }
+        }
+
+        // Device Orientation API
+        function startOrientation() {
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            setupOrientationListener();
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                setupOrientationListener();
+            }
+        }
+        
+        function setupOrientationListener() {
+            window.addEventListener('deviceorientation', (event) => {
+                document.getElementById('alpha').textContent = Math.round(event.alpha || 0) + '°';
+                document.getElementById('beta').textContent = Math.round(event.beta || 0) + '°';
+                document.getElementById('gamma').textContent = Math.round(event.gamma || 0) + '°';
+            });
+        }
+
+        // Battery API
+        async function getBatteryInfo() {
+            const output = document.getElementById('batteryInfo');
+            
+            if (!navigator.getBattery) {
+                output.innerHTML = '<div class="error">Battery API not supported</div>';
+                return;
+            }
+            
+            try {
+                const battery = await navigator.getBattery();
+                const level = Math.round(battery.level * 100);
+                const charging = battery.charging ? '⚡ Charging' : '🔋 Not Charging';
+                const fillClass = level < 20 ? 'battery-low' : '';
+                
+                output.innerHTML = `
+                    <div class="info-display">
+                        <div class="battery-display">
+                            <div class="battery-bar">
+                                <div class="battery-fill ${fillClass}" style="width: ${level}%">${level}%</div>
+                            </div>
+                        </div>
+                        <div class="info-item" style="margin-top: 10px;">
+                            <span class="label">Status:</span> ${charging}
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                output.innerHTML = '<div class="error">Could not access battery info</div>';
+            }
+        }
+
+        // Vibration API
+        function vibrateShort() {
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            } else {
+                alert('Vibration not supported on this device');
+            }
+        }
+        
+        function vibrateLong() {
+            if (navigator.vibrate) {
+                navigator.vibrate(1000);
+            }
+        }
+        
+        function vibratePattern() {
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100, 50, 100]);
+            }
+        }
+
+        // Notification API
+        function requestNotificationPermission() {
+            if (!('Notification' in window)) {
+                alert('Notifications not supported');
+                return;
+            }
+            
+            Notification.requestPermission().then(permission => {
+                logNotification(`Permission: ${permission}`);
+            });
+        }
+        
+        function showNotification() {
+            if (Notification.permission === 'granted') {
+                new Notification('Browser API Demo', {
+                    body: 'This is a test notification!',
+                    icon: '🔔'
+                });
+                logNotification('Notification sent!');
+            } else {
+                alert('Please enable notifications first');
+            }
+        }
+        
+        function logNotification(message) {
+            const log = document.getElementById('notificationLog');
+            const item = document.createElement('div');
+            item.className = 'log-item';
+            item.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+            log.insertBefore(item, log.firstChild);
+        }
+
+        // Canvas Drawing API
+        const canvas = document.getElementById('drawCanvas');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        let currentColor = '#000';
+        
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startDrawing(e.touches[0]);
+        });
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            draw(e.touches[0]);
+        });
+        canvas.addEventListener('touchend', stopDrawing);
+        
+        function startDrawing(e) {
+            drawing = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+        
+        function draw(e) {
+            if (!drawing) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.strokeStyle = currentColor;
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        }
+        
+        function stopDrawing() {
+            drawing = false;
+        }
+        
+        function setDrawColor(color) {
+            currentColor = color;
+        }
+        
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Text to Speech API
+        function speakText() {
+            const text = document.getElementById('speechText').value;
+            const utterance = new SpeechSynthesisUtterance(text);
+            speechSynthesis.speak(utterance);
+        }
+        
+        function stopSpeaking() {
+            speechSynthesis.cancel();
+        }
+
+        // Clipboard API
+        async function copyToClipboard() {
+            const text = document.getElementById('clipboardText').value;
+            try {
+                await navigator.clipboard.writeText(text);
+                alert('Copied to clipboard!');
+            } catch (error) {
+                alert('Failed to copy: ' + error.message);
+            }
+        }
+        
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('clipboardText').value = text;
+            } catch (error) {
+                alert('Failed to paste: ' + error.message);
+            }
+        }
+
+        // Fullscreen API
+        function toggleFullscreen() {
+            const elem = document.getElementById('fullscreenContent');
+            
+            if (!document.fullscreenElement) {
+                elem.requestFullscreen().catch(err => {
+                    alert('Error attempting to enable fullscreen: ' + err.message);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Page Visibility API
+        let visibilityCount = 0;
+        
+        document.addEventListener('visibilitychange', () => {
+            const status = document.getElementById('visibilityStatus');
+            const count = document.getElementById('visibilityCount');
+            
+            if (document.hidden) {
+                status.textContent = 'Hidden';
+                visibilityCount++;
+                count.textContent = visibilityCount;
+            } else {
+                status.textContent = 'Visible';
+            }
+        });
+    </script>
+</body>
+</html>
